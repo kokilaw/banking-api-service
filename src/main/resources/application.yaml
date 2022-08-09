@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    username: sa
+    url: jdbc:h2:mem:mydb
+    password: password
+  jpa:
+    open-in-view: 'false'
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: 'true'
+    hibernate:
+      ddl-auto: create-drop
+  h2:
+    console:
+      enabled: 'true'
+springdoc:
+  api-docs:
+    path: /api-docs
+server:
+  servlet:
+    context-path: /banking-api/v1

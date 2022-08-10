@@ -1,6 +1,7 @@
 package io.kokilaw.banking.repository.model;
 
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -32,6 +33,7 @@ public class Transaction {
 
     @Column(name = "created_at", nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private LocalDateTime createdAt = LocalDateTime.now();
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
 }

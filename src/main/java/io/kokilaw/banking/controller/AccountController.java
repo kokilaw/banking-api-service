@@ -5,6 +5,8 @@ import io.kokilaw.banking.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /**
  * Created by kokilaw on 2022-08-09
  */
@@ -20,7 +22,7 @@ public class AccountController {
     }
 
     @PostMapping
-    public AccountDTO createAccount(@RequestBody AccountDTO account) {
+    public AccountDTO createAccount(@Valid @RequestBody AccountDTO account) {
         return accountService.createAccount(account);
     }
 
@@ -30,7 +32,7 @@ public class AccountController {
     }
 
     @PutMapping("/{accountId}")
-    public AccountDTO updateAccount(@PathVariable Long accountId, @RequestBody AccountDTO account) {
+    public AccountDTO updateAccount(@PathVariable Long accountId, @Valid @RequestBody AccountDTO account) {
         return accountService.updateAccount(accountId, account);
     }
 

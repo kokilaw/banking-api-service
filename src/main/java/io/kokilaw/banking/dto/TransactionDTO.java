@@ -3,6 +3,8 @@ package io.kokilaw.banking.dto;
 import io.kokilaw.banking.repository.model.TransactionType;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
 /**
@@ -10,7 +12,13 @@ import java.math.BigDecimal;
  */
 @Data
 public class TransactionDTO {
+
+    @NotNull(message = "Transaction type should be CREDIT or DEBIT")
     private TransactionType transactionType;
+
+    @Positive(message = "Transaction amount cannot be a negative value")
     private BigDecimal amount = BigDecimal.ZERO;
+
     private String createdAt;
+
 }

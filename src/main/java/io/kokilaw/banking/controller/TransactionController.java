@@ -5,6 +5,7 @@ import io.kokilaw.banking.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -31,7 +32,7 @@ public class TransactionController {
     @PostMapping
     public TransactionDTO createTransaction(
             @PathVariable Long accountId,
-            @RequestBody TransactionDTO transactionDTO
+            @Valid @RequestBody TransactionDTO transactionDTO
     ) {
         return transactionService.createTransaction(accountId, transactionDTO);
     }

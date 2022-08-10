@@ -4,6 +4,7 @@ import io.kokilaw.banking.dto.ErrorDTO;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -74,4 +75,14 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
                 }).collect(Collectors.toList()));
         return new ResponseEntity<>(errorDTO, httpStatus);
     }
+
+    @Override
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setMessage("Invalid request received.");
+        errorDTO.setAdditionalInfo(ex.getMessage());
+        errorDTO.setStatusCode(status.value());
+        return new ResponseEntity<>(errorDTO, status);
+    }
+
 }

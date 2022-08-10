@@ -13,6 +13,8 @@ import java.math.BigDecimal;
 @Data
 public class TransactionDTO {
 
+    private Long id;
+
     @NotNull(message = "Transaction type should be CREDIT or DEBIT")
     private TransactionType transactionType;
 

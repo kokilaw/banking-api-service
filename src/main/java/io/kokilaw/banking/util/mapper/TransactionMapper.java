@@ -17,6 +17,7 @@ public class TransactionMapper {
 
     public static TransactionDTO mapToTransactionDTO(Transaction transaction) {
         TransactionDTO transactionDTO = new TransactionDTO();
+        transactionDTO.setId(transaction.getId());
         transactionDTO.setTransactionType(transaction.getTransactionType());
         transactionDTO.setAmount(transaction.getAmount());
         transactionDTO.setCreatedAt(transaction.getCreatedAt().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
@@ -25,6 +26,7 @@ public class TransactionMapper {
 
     public static Transaction mapToTransaction(TransactionDTO transactionDTO, Account account) {
         Transaction transaction = new Transaction();
+        transaction.setId(transactionDTO.getId());
         transaction.setTransactionType(transactionDTO.getTransactionType());
         transaction.setAmount(transactionDTO.getAmount());
         transaction.setAccount(account);

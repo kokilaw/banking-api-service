@@ -1,6 +1,10 @@
-package io.kokilaw.banking.exception;
+package io.kokilaw.banking.error;
 
 import io.kokilaw.banking.dto.ErrorDTO;
+import io.kokilaw.banking.error.exception.AccountNotFoundException;
+import io.kokilaw.banking.error.exception.CurrencyNotSupportedException;
+import io.kokilaw.banking.error.exception.InsufficientAccountBalanceException;
+import io.kokilaw.banking.error.exception.TransactionNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

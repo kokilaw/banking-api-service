@@ -14,7 +14,7 @@ public interface TransactionService {
      *
      * @param accountId id of the account
      * @return list of available transactions for account
-     * @throws io.kokilaw.banking.exception.AccountNotFoundException If account is not found for
+     * @throws io.kokilaw.banking.error.exception.AccountNotFoundException If account is not found for
      *                                                               passed accountId
      */
     List<TransactionDTO> getTransactions(Long accountId);
@@ -25,9 +25,9 @@ public interface TransactionService {
      * @param accountId      id of the account
      * @param transactionDTO transaction object
      * @return the created transaction
-     * @throws io.kokilaw.banking.exception.AccountNotFoundException            If account is not found for
+     * @throws io.kokilaw.banking.error.exception.AccountNotFoundException            If account is not found for
      *                                                                          passed accountId
-     * @throws io.kokilaw.banking.exception.InsufficientAccountBalanceException If account does contain sufficient funds
+     * @throws io.kokilaw.banking.error.exception.InsufficientAccountBalanceException If account does contain sufficient funds
      *                                                                          to proceed with transaction
      */
     TransactionDTO createTransaction(Long accountId, TransactionDTO transactionDTO);
@@ -38,9 +38,9 @@ public interface TransactionService {
      * @param accountId     id of the account
      * @param transactionId id of the transaction
      * @return the transaction
-     * @throws io.kokilaw.banking.exception.AccountNotFoundException     If account is not found for
+     * @throws io.kokilaw.banking.error.exception.AccountNotFoundException     If account is not found for
      *                                                                   passed accountId
-     * @throws io.kokilaw.banking.exception.TransactionNotFoundException If transaction is not found for
+     * @throws io.kokilaw.banking.error.exception.TransactionNotFoundException If transaction is not found for
      *                                                                   passed transactionId
      */
     TransactionDTO getTransaction(Long accountId, Long transactionId);

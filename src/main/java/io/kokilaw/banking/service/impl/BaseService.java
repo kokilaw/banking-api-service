@@ -1,7 +1,7 @@
 package io.kokilaw.banking.service.impl;
 
-import io.kokilaw.banking.exception.AccountNotFoundException;
-import io.kokilaw.banking.exception.CurrencyNotSupportedException;
+import io.kokilaw.banking.error.exception.AccountNotFoundException;
+import io.kokilaw.banking.error.exception.CurrencyNotSupportedException;
 import io.kokilaw.banking.repository.AccountRepository;
 import io.kokilaw.banking.repository.CurrencyRepository;
 import io.kokilaw.banking.repository.model.Account;

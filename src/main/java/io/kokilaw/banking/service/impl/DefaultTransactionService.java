@@ -1,8 +1,8 @@
 package io.kokilaw.banking.service.impl;
 
 import io.kokilaw.banking.dto.TransactionDTO;
-import io.kokilaw.banking.exception.InsufficientAccountBalanceException;
-import io.kokilaw.banking.exception.TransactionNotFoundException;
+import io.kokilaw.banking.error.exception.InsufficientAccountBalanceException;
+import io.kokilaw.banking.error.exception.TransactionNotFoundException;
 import io.kokilaw.banking.repository.AccountRepository;
 import io.kokilaw.banking.repository.CurrencyRepository;
 import io.kokilaw.banking.repository.TransactionRepository;

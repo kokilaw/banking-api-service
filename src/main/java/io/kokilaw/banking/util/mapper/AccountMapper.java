@@ -19,9 +19,8 @@ public class AccountMapper {
         Account account = new Account();
         account.setGivenName(accountDTO.getGivenName());
         account.setFamilyName(accountDTO.getFamilyName());
-        account.setCurrencyCode(accountDTO.getCurrencyCode());
         account.setNic(accountDTO.getNic());
-        account.setBalance(new BigDecimal(accountDTO.getBalance()));
+        account.setBalance(accountDTO.getBalance());
         account.setDateOfBirth(LocalDate.parse(accountDTO.getDateOfBirth()));
         return account;
     }
@@ -32,8 +31,8 @@ public class AccountMapper {
         accountDTO.setGivenName(account.getGivenName());
         accountDTO.setFamilyName(account.getFamilyName());
         accountDTO.setNic(account.getNic());
-        accountDTO.setCurrencyCode(account.getCurrencyCode());
-        accountDTO.setBalance(account.getBalance().toString());
+        accountDTO.setCurrencyCode(account.getCurrency().getCurrencyCode());
+        accountDTO.setBalance(account.getBalance());
         accountDTO.setDateOfBirth(account.getDateOfBirth().format(DateTimeFormatter.ISO_LOCAL_DATE));
         return accountDTO;
     }

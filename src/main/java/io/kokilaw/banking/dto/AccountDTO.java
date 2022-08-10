@@ -2,8 +2,7 @@ package io.kokilaw.banking.dto;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import java.time.LocalDate;
+import java.math.BigDecimal;
 
 /**
  * Created by kokilaw on 2022-08-09
@@ -17,6 +16,6 @@ public class AccountDTO {
     private String dateOfBirth;
     private String nic;
     private String currencyCode;
-    private String balance;
+    private BigDecimal balance = BigDecimal.ZERO;
 
 }

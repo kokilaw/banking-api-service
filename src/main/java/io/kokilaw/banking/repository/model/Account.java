@@ -39,8 +39,9 @@ public class Account {
     @Column(name = "balance", nullable = false)
     private BigDecimal balance;
 
-    @Column(name = "currency_code", nullable = false)
-    private String currencyCode;
+    @ManyToOne
+    @JoinColumn(name = "currency_id", nullable = false)
+    private Currency currency;
 
     @Column(name = "created_at", nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
@@ -50,9 +51,5 @@ public class Account {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime updatedAt = LocalDateTime.now();
 
-    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private Set<Transaction> transactions;
 
 }

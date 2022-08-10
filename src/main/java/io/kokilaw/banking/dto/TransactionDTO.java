@@ -10,5 +10,5 @@ import lombok.Data;
 public class TransactionDTO {
     private TransactionType transactionType;
     private String amount;
-    private String dateTime;
+    private String createdAt;
 }

@@ -1,15 +1,12 @@
 package io.kokilaw.banking.repository.model;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 /**
  * Created by kokilaw on 2022-08-09

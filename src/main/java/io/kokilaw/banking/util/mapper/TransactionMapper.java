@@ -19,7 +19,7 @@ public class TransactionMapper {
         TransactionDTO transactionDTO = new TransactionDTO();
         transactionDTO.setTransactionType(transaction.getTransactionType());
         transactionDTO.setAmount(transaction.getAmount());
-        transactionDTO.setCreatedAt(transaction.getCreatedAt().format(DateTimeFormatter.ISO_LOCAL_DATE));
+        transactionDTO.setCreatedAt(transaction.getCreatedAt().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
         return transactionDTO;
     }
 

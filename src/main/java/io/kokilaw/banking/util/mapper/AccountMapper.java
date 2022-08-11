@@ -2,6 +2,7 @@ package io.kokilaw.banking.util.mapper;
 
 import io.kokilaw.banking.dto.AccountDTO;
 import io.kokilaw.banking.repository.model.Account;
+import io.kokilaw.banking.repository.model.User;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,25 +16,20 @@ public class AccountMapper {
     private AccountMapper() {
     }
 
-    public static Account mapToAccount(AccountDTO accountDTO) {
+    public static Account mapToAccount(AccountDTO accountDTO, User user, String currencyCode) {
         Account account = new Account();
-        account.setGivenName(accountDTO.getGivenName());
-        account.setFamilyName(accountDTO.getFamilyName());
-        account.setNic(accountDTO.getNic());
-        account.setBalance(accountDTO.getBalance());
-        account.setDateOfBirth(LocalDate.parse(accountDTO.getDateOfBirth()));
+        account.setBalance(accountDTO.getBalanceInCents());
+        account.setCurrencyCode(currencyCode);
+        account.setUser(user);
         return account;
     }
 
     public static AccountDTO mapToAccountDTO(Account account) {
         AccountDTO accountDTO = new AccountDTO();
         accountDTO.setId(account.getId());
-        accountDTO.setGivenName(account.getGivenName());
-        accountDTO.setFamilyName(account.getFamilyName());
-        accountDTO.setNic(account.getNic());
-        accountDTO.setCurrencyCode(account.getCurrency().getCurrencyCode());
-        accountDTO.setBalance(account.getBalance());
-        accountDTO.setDateOfBirth(account.getDateOfBirth().format(DateTimeFormatter.ISO_LOCAL_DATE));
+        accountDTO.setUserId(account.getUser().getId());
+        accountDTO.setCurrencyCode(account.getCurrencyCode());
+        accountDTO.setBalanceInCents(account.getBalance());
         return accountDTO;
     }
 

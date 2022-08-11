@@ -2,67 +2,63 @@ package io.kokilaw.banking.service.impl;
 
 import io.kokilaw.banking.dto.AccountDTO;
 import io.kokilaw.banking.repository.AccountRepository;
-import io.kokilaw.banking.repository.CurrencyRepository;
 import io.kokilaw.banking.repository.model.Account;
-import io.kokilaw.banking.repository.model.Currency;
+import io.kokilaw.banking.repository.model.User;
 import io.kokilaw.banking.service.AccountService;
 import io.kokilaw.banking.util.mapper.AccountMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 /**
  * Created by kokilaw on 2022-08-09
  */
 
 @Service
-public class DefaultAccountService extends BaseService implements AccountService {
+public class DefaultAccountService implements AccountService {
+
+    private final CommonService commonService;
+    private final AccountRepository accountRepository;
 
     @Autowired
-    public DefaultAccountService(AccountRepository accountRepository, CurrencyRepository currencyRepository) {
-        super(accountRepository, currencyRepository);
+    public DefaultAccountService(CommonService commonService, AccountRepository accountRepository) {
+        this.commonService = commonService;
+        this.accountRepository = accountRepository;
     }
 
     @Override
     public AccountDTO createAccount(AccountDTO accountDTO) {
-        Account account = AccountMapper.mapToAccount(accountDTO);
-        Currency currency = getCurrencyIfAvailable(accountDTO.getCurrencyCode());
-        account.setCurrency(currency);
+        String currencyCode = commonService.getCurrencyIfAvailable(accountDTO.getCurrencyCode());
+        User user = commonService.getUserIfAvailable(accountDTO.getUserId());
+        Account account = AccountMapper.mapToAccount(accountDTO, user, currencyCode);
         return AccountMapper.mapToAccountDTO(accountRepository.save(account));
     }
 
     @Override
     public AccountDTO getAccount(long accountId) {
-        Account account = getAccountIfAvailable(accountId);
+        Account account = commonService.getAccountIfAvailable(accountId);
         return AccountMapper.mapToAccountDTO(account);
     }
 
     @Override
     public AccountDTO updateAccount(long accountId, AccountDTO accountDTO) {
-        Account currentAccount = getAccountIfAvailable(accountId);
-        Currency currency = getCurrencyIfAvailable(accountDTO.getCurrencyCode());
-        Account accountToUpdate = AccountMapper.mapToAccount(accountDTO);
+        Account currentAccount = commonService.getAccountIfAvailable(accountId);
+        String currency = commonService.getCurrencyIfAvailable(accountDTO.getCurrencyCode());
+        Account accountToUpdate = AccountMapper.mapToAccount(accountDTO, currentAccount.getUser(), currency);
         currentAccount.setBalance(accountToUpdate.getBalance());
-        currentAccount.setCurrency(currency);
-        currentAccount.setGivenName(accountToUpdate.getGivenName());
-        currentAccount.setFamilyName(accountToUpdate.getFamilyName());
-        currentAccount.setNic(accountToUpdate.getNic());
-        currentAccount.setUpdatedAt(LocalDateTime.now());
+        currentAccount.setCurrencyCode(accountToUpdate.getCurrencyCode());
         return AccountMapper.mapToAccountDTO(accountRepository.save(currentAccount));
     }
 
     @Override
-    public AccountDTO updateAccountBalance(long accountId, BigDecimal balance) {
-        Account currentAccount = getAccountIfAvailable(accountId);
+    public AccountDTO updateAccountBalance(long accountId, long balance) {
+        Account currentAccount = commonService.getAccountIfAvailable(accountId);
         currentAccount.setBalance(balance);
         return AccountMapper.mapToAccountDTO(accountRepository.save(currentAccount));
     }
 
     @Override
     public void deleteAccount(long accountId) {
-        getAccountIfAvailable(accountId);
+        commonService.getAccountIfAvailable(accountId);
         accountRepository.deleteById(accountId);
     }
 

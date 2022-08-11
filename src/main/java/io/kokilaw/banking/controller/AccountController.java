@@ -11,7 +11,7 @@ import javax.validation.Valid;
  * Created by kokilaw on 2022-08-09
  */
 @RestController
-@RequestMapping("/accounts")
+@RequestMapping("/v1/accounts")
 public class AccountController {
 
     private final AccountService accountService;

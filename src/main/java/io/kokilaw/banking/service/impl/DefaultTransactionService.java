@@ -2,9 +2,8 @@ package io.kokilaw.banking.service.impl;
 
 import io.kokilaw.banking.dto.TransactionDTO;
 import io.kokilaw.banking.error.exception.InsufficientAccountBalanceException;
+import io.kokilaw.banking.error.exception.NotFoundException;
 import io.kokilaw.banking.error.exception.TransactionNotFoundException;
-import io.kokilaw.banking.repository.AccountRepository;
-import io.kokilaw.banking.repository.CurrencyRepository;
 import io.kokilaw.banking.repository.TransactionRepository;
 import io.kokilaw.banking.repository.model.Account;
 import io.kokilaw.banking.repository.model.Transaction;
@@ -23,26 +22,25 @@ import java.util.stream.Collectors;
  * Created by kokilaw on 2022-08-10
  */
 @Service
-public class DefaultTransactionService extends BaseService implements TransactionService {
+public class DefaultTransactionService implements TransactionService {
 
     private final AccountService accountService;
     private final TransactionRepository transactionRepository;
+    private final CommonService commonService;
 
     @Autowired
     public DefaultTransactionService(
             AccountService accountService,
-            AccountRepository accountRepository,
             TransactionRepository transactionRepository,
-            CurrencyRepository currencyRepository
-    ) {
-        super(accountRepository, currencyRepository);
+            CommonService commonService) {
         this.accountService = accountService;
         this.transactionRepository = transactionRepository;
+        this.commonService = commonService;
     }
 
     @Override
     public List<TransactionDTO> getTransactions(long accountId) {
-        Account account = getAccountIfAvailable(accountId);
+        Account account = commonService.getAccountIfAvailable(accountId);
         return transactionRepository.findAllByAccount(account)
                 .stream()
                 .map(TransactionMapper::mapToTransactionDTO)
@@ -52,29 +50,29 @@ public class DefaultTransactionService extends BaseService implements Transactio
     @Override
     @Transactional
     public TransactionDTO createTransaction(long accountId, TransactionDTO transactionDTO) {
-        Account account = getAccountIfAvailable(accountId);
+        Account account = commonService.getAccountIfAvailable(accountId);
 
         if (isAccountBalanceNotSufficient(transactionDTO, account)) {
-            throw new InsufficientAccountBalanceException(String.format("Account balance not sufficient to perform debit transaction of: %s", transactionDTO.getAmount().toString()));
+            throw new InsufficientAccountBalanceException(String.format("Account balance not sufficient to perform debit transaction of: %s", transactionDTO.getAmountInCents()));
         }
 
         Transaction transaction = TransactionMapper.mapToTransaction(transactionDTO, account);
         if (transactionDTO.getTransactionType() == TransactionType.CREDIT) {
-            accountService.updateAccountBalance(accountId, account.getBalance().add(transactionDTO.getAmount()));
+            accountService.updateAccountBalance(accountId, account.getBalance() + transactionDTO.getAmountInCents());
         } else {
-            accountService.updateAccountBalance(accountId, account.getBalance().subtract(transactionDTO.getAmount()));
+            accountService.updateAccountBalance(accountId, account.getBalance() - transactionDTO.getAmountInCents());
         }
 
         return TransactionMapper.mapToTransactionDTO(transactionRepository.save(transaction));
     }
 
     private boolean isAccountBalanceNotSufficient(TransactionDTO transactionDTO, Account account) {
-        return transactionDTO.getTransactionType() == TransactionType.DEBIT && account.getBalance().compareTo(transactionDTO.getAmount()) < 0;
+        return transactionDTO.getTransactionType() == TransactionType.DEBIT && account.getBalance() < 0;
     }
 
     @Override
     public TransactionDTO getTransaction(long accountId, long transactionId) {
-        Transaction transaction = transactionRepository.findById(transactionId).orElseThrow(() -> new TransactionNotFoundException(
+        Transaction transaction = transactionRepository.findById(transactionId).orElseThrow(() -> new NotFoundException(
                 String.format("Transaction not found for id: %s", transactionId)
         ));
         return TransactionMapper.mapToTransactionDTO(transaction);

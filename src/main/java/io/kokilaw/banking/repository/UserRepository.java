@@ -1,6 +1,6 @@
 package io.kokilaw.banking.repository;
 
-import io.kokilaw.banking.repository.model.Account;
+import io.kokilaw.banking.repository.model.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
  * Created by kokilaw on 2022-08-09
  */
 @Repository
-public interface AccountRepository extends CrudRepository<Account, Long> {
+public interface UserRepository extends CrudRepository<User, Long> {
 }

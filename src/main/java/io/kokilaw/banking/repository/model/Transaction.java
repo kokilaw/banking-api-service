@@ -5,7 +5,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -29,7 +28,7 @@ public class Transaction {
     private TransactionType transactionType;
 
     @Column(nullable = false)
-    private BigDecimal amount;
+    private Long amount;
 
     @Column(name = "created_at", nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)

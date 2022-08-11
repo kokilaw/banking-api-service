@@ -1,7 +1,7 @@
 package io.kokilaw.banking.error;
 
 import io.kokilaw.banking.dto.ErrorDTO;
-import io.kokilaw.banking.error.exception.AccountNotFoundException;
+import io.kokilaw.banking.error.exception.NotFoundException;
 import io.kokilaw.banking.error.exception.CurrencyNotSupportedException;
 import io.kokilaw.banking.error.exception.InsufficientAccountBalanceException;
 import io.kokilaw.banking.error.exception.TransactionNotFoundException;
@@ -24,11 +24,11 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(AccountNotFoundException.class)
-    public ResponseEntity<Object> handleAccountNotFoundException(AccountNotFoundException ex, WebRequest request) {
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<Object> handleNotFoundException(NotFoundException ex, WebRequest request) {
         HttpStatus httpStatus = HttpStatus.NOT_FOUND;
         ErrorDTO errorDTO = new ErrorDTO();
-        errorDTO.setMessage("Account not found.");
+        errorDTO.setMessage("Entity not found.");
         errorDTO.setStatusCode(httpStatus.value());
         errorDTO.setAdditionalInfo(ex.getMessage());
         return new ResponseEntity<>(errorDTO, httpStatus);
@@ -49,16 +49,6 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
         ErrorDTO errorDTO = new ErrorDTO();
         errorDTO.setMessage("Account balance not sufficient.");
-        errorDTO.setStatusCode(httpStatus.value());
-        errorDTO.setAdditionalInfo(ex.getMessage());
-        return new ResponseEntity<>(errorDTO, httpStatus);
-    }
-
-    @ExceptionHandler(TransactionNotFoundException.class)
-    public ResponseEntity<Object> handleTransactionNotFoundException(TransactionNotFoundException ex, WebRequest request) {
-        HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
-        ErrorDTO errorDTO = new ErrorDTO();
-        errorDTO.setMessage("Transaction not found.");
         errorDTO.setStatusCode(httpStatus.value());
         errorDTO.setAdditionalInfo(ex.getMessage());
         return new ResponseEntity<>(errorDTO, httpStatus);

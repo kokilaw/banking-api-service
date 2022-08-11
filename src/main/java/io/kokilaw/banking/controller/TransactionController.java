@@ -12,7 +12,7 @@ import java.util.List;
  * Created by kokilaw on 2022-08-10
  */
 @RestController
-@RequestMapping("/accounts/{accountId}/transactions")
+@RequestMapping("/v1/accounts/{accountId}/transactions")
 public class TransactionController {
 
     private final TransactionService transactionService;

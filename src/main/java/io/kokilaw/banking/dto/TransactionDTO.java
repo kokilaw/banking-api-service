@@ -19,7 +19,7 @@ public class TransactionDTO {
     private TransactionType transactionType;
 
     @Positive(message = "Transaction amount cannot be a negative value")
-    private BigDecimal amount = BigDecimal.ZERO;
+    private long amountInCents = 0L;
 
     private String createdAt;
 

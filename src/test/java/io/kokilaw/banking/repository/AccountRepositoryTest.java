@@ -2,7 +2,6 @@ package io.kokilaw.banking.repository;
 
 import io.kokilaw.banking.repository.model.Account;
 import io.kokilaw.banking.repository.model.User;
-import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

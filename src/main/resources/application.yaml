@@ -13,3 +13,11 @@ springdoc:
 server:
   servlet:
     context-path: /banking-api/v1
+
+application:
+  properties:
+    supported-currencies: >
+      USD,
+      GBP,
+      EUR
+

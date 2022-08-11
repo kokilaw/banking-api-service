@@ -20,4 +20,3 @@ docker run --name banking_postgres -p 5455:5432 -e POSTGRES_USER=postgres -e POS
 ```
 
 - Run `scripts/init/init_schema.sql` to setup the database schema.
-- Run `scripts/init/init_data.sql` to setup initial data needed to run the API

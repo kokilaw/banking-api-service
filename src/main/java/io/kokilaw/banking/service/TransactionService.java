@@ -17,7 +17,7 @@ public interface TransactionService {
      * @throws io.kokilaw.banking.error.exception.AccountNotFoundException If account is not found for
      *                                                                     passed accountId
      */
-    List<TransactionDTO> getTransactions(Long accountId);
+    List<TransactionDTO> getTransactions(long accountId);
 
     /**
      * Creates transaction for an account
@@ -30,7 +30,7 @@ public interface TransactionService {
      * @throws io.kokilaw.banking.error.exception.InsufficientAccountBalanceException If account does contain sufficient funds
      *                                                                                to proceed with transaction
      */
-    TransactionDTO createTransaction(Long accountId, TransactionDTO transactionDTO);
+    TransactionDTO createTransaction(long accountId, TransactionDTO transactionDTO);
 
     /**
      * Returns a specific transaction for an account
@@ -43,6 +43,6 @@ public interface TransactionService {
      * @throws io.kokilaw.banking.error.exception.TransactionNotFoundException If transaction is not found for
      *                                                                         passed transactionId
      */
-    TransactionDTO getTransaction(Long accountId, Long transactionId);
+    TransactionDTO getTransaction(long accountId, long transactionId);
 
 }

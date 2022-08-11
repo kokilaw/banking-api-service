@@ -6,7 +6,6 @@ import io.kokilaw.banking.repository.AccountRepository;
 import io.kokilaw.banking.repository.UserRepository;
 import io.kokilaw.banking.repository.model.Account;
 import io.kokilaw.banking.repository.model.User;
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -65,6 +64,7 @@ public class CommonServiceTest {
             commonService.getUserIfAvailable(1L);
         });
         Assertions.assertEquals(bankingApiException.getHttpStatus(), ApiError.ENTITY_NOT_FOUND_ERROR.getHttpStatus());
+        Assertions.assertEquals(bankingApiException.getErrorResponse().getErrorCode(), ApiError.ENTITY_NOT_FOUND_ERROR.getErrorCode());
     }
 
     @Test
@@ -82,6 +82,7 @@ public class CommonServiceTest {
             commonService.getAccountIfAvailable(1L);
         });
         Assertions.assertEquals(bankingApiException.getHttpStatus(), ApiError.ENTITY_NOT_FOUND_ERROR.getHttpStatus());
+        Assertions.assertEquals(bankingApiException.getErrorResponse().getErrorCode(), ApiError.ENTITY_NOT_FOUND_ERROR.getErrorCode());
     }
 
     @Test
@@ -99,6 +100,7 @@ public class CommonServiceTest {
             commonService.getCurrencyIfAvailable("SGD");
         });
         Assertions.assertEquals(bankingApiException.getHttpStatus(), ApiError.CURRENCY_NOT_SUPPORTED_ERROR.getHttpStatus());
+        Assertions.assertEquals(bankingApiException.getErrorResponse().getErrorCode(), ApiError.CURRENCY_NOT_SUPPORTED_ERROR.getErrorCode());
     }
 
     @Test

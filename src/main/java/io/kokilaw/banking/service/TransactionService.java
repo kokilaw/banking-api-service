@@ -15,7 +15,7 @@ public interface TransactionService {
      * @param accountId id of the account
      * @return list of available transactions for account
      * @throws io.kokilaw.banking.error.exception.AccountNotFoundException If account is not found for
-     *                                                               passed accountId
+     *                                                                     passed accountId
      */
     List<TransactionDTO> getTransactions(Long accountId);
 
@@ -26,9 +26,9 @@ public interface TransactionService {
      * @param transactionDTO transaction object
      * @return the created transaction
      * @throws io.kokilaw.banking.error.exception.AccountNotFoundException            If account is not found for
-     *                                                                          passed accountId
+     *                                                                                passed accountId
      * @throws io.kokilaw.banking.error.exception.InsufficientAccountBalanceException If account does contain sufficient funds
-     *                                                                          to proceed with transaction
+     *                                                                                to proceed with transaction
      */
     TransactionDTO createTransaction(Long accountId, TransactionDTO transactionDTO);
 
@@ -39,9 +39,9 @@ public interface TransactionService {
      * @param transactionId id of the transaction
      * @return the transaction
      * @throws io.kokilaw.banking.error.exception.AccountNotFoundException     If account is not found for
-     *                                                                   passed accountId
+     *                                                                         passed accountId
      * @throws io.kokilaw.banking.error.exception.TransactionNotFoundException If transaction is not found for
-     *                                                                   passed transactionId
+     *                                                                         passed transactionId
      */
     TransactionDTO getTransaction(Long accountId, Long transactionId);
 

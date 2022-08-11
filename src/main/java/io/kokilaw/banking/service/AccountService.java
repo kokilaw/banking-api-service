@@ -15,7 +15,7 @@ public interface AccountService {
      * @param account account object
      * @return the created account
      * @throws io.kokilaw.banking.error.exception.CurrencyNotSupportedException If {@link AccountDTO#getCurrencyCode()}
-     *                                                                    is not supported
+     *                                                                          is not supported
      */
     AccountDTO createAccount(AccountDTO account);
 
@@ -25,7 +25,7 @@ public interface AccountService {
      * @param accountId id of the account
      * @return the account object
      * @throws io.kokilaw.banking.error.exception.AccountNotFoundException If account is not found for
-     *                                                               passed accountId
+     *                                                                     passed accountId
      */
     AccountDTO getAccount(Long accountId);
 
@@ -36,9 +36,9 @@ public interface AccountService {
      * @param account   account object
      * @return the updated account object
      * @throws io.kokilaw.banking.error.exception.AccountNotFoundException      If account is not found for
-     *                                                                    passed accountId
+     *                                                                          passed accountId
      * @throws io.kokilaw.banking.error.exception.CurrencyNotSupportedException If {@link AccountDTO#getCurrencyCode()}
-     *                                                                    is not supported
+     *                                                                          is not supported
      */
     AccountDTO updateAccount(Long accountId, AccountDTO account);
 
@@ -49,7 +49,7 @@ public interface AccountService {
      * @param balance   balance value needs to be updated with
      * @return the updated account object
      * @throws io.kokilaw.banking.error.exception.AccountNotFoundException If account is not found for
-     *                                                               passed accountId
+     *                                                                     passed accountId
      */
     AccountDTO updateAccountBalance(Long accountId, BigDecimal balance);
 
@@ -58,7 +58,7 @@ public interface AccountService {
      *
      * @param accountId id of the account needs to be deleted
      * @throws io.kokilaw.banking.error.exception.AccountNotFoundException If account is not found for
-     *                                                               passed accountId
+     *                                                                     passed accountId
      */
     void deleteAccount(Long accountId);
 

@@ -5,7 +5,7 @@ import io.kokilaw.banking.repository.UserRepository;
 import io.kokilaw.banking.repository.model.User;
 import io.kokilaw.banking.service.UserService;
 import io.kokilaw.banking.util.mapper.UserMapper;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -39,9 +39,9 @@ public class UserServiceTest {
         UserDTO createdUser = userService.createUser(userDTO);
         Mockito.verify(userRepository, Mockito.times(1)).save(UserMapper.mapToUser(userDTO));
 
-        Assert.assertEquals(userDTO.getEmail(), createdUser.getEmail());
-        Assert.assertEquals(userDTO.getDateOfBirth(), createdUser.getDateOfBirth());
-        Assert.assertEquals(userDTO.getNic(), createdUser.getNic());
+        Assertions.assertEquals(userDTO.getEmail(), createdUser.getEmail());
+        Assertions.assertEquals(userDTO.getDateOfBirth(), createdUser.getDateOfBirth());
+        Assertions.assertEquals(userDTO.getNic(), createdUser.getNic());
 
     }
 
@@ -58,9 +58,9 @@ public class UserServiceTest {
         UserDTO returnUser = userService.getUser(1L);
         Mockito.verify(commonService, Mockito.times(1)).getUserIfAvailable(1L);
 
-        Assert.assertEquals(userDTO.getEmail(), returnUser.getEmail());
-        Assert.assertEquals(userDTO.getDateOfBirth(), returnUser.getDateOfBirth());
-        Assert.assertEquals(userDTO.getNic(), returnUser.getNic());
+        Assertions.assertEquals(userDTO.getEmail(), returnUser.getEmail());
+        Assertions.assertEquals(userDTO.getDateOfBirth(), returnUser.getDateOfBirth());
+        Assertions.assertEquals(userDTO.getNic(), returnUser.getNic());
 
 
     }
@@ -83,8 +83,8 @@ public class UserServiceTest {
         Mockito.verify(commonService, Mockito.times(1)).getUserIfAvailable(1L);
         Mockito.verify(userRepository, Mockito.times(1)).save(updatedUser);
 
-        Assert.assertEquals(userDTO.getEmail(), returnedUserDTO.getEmail());
-        Assert.assertEquals("Sam", returnedUserDTO.getGivenName());
+        Assertions.assertEquals(userDTO.getEmail(), returnedUserDTO.getEmail());
+        Assertions.assertEquals("Sam", returnedUserDTO.getGivenName());
 
 
     }

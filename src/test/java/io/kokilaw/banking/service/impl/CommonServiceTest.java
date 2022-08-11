@@ -7,6 +7,7 @@ import io.kokilaw.banking.repository.UserRepository;
 import io.kokilaw.banking.repository.model.Account;
 import io.kokilaw.banking.repository.model.User;
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -80,15 +81,15 @@ public class CommonServiceTest {
         BankingApiException bankingApiException = assertThrows(BankingApiException.class, () -> {
             commonService.getAccountIfAvailable(1L);
         });
-        Assert.assertEquals(bankingApiException.getHttpStatus(), ApiError.ENTITY_NOT_FOUND_ERROR.getHttpStatus());
+        Assertions.assertEquals(bankingApiException.getHttpStatus(), ApiError.ENTITY_NOT_FOUND_ERROR.getHttpStatus());
     }
 
     @Test
     @DisplayName("When account is found for given account id")
     public void whenAccountIsFound() {
         Account returnedAccount = commonService.getAccountIfAvailable(2L);
-        Assert.assertEquals(account.getCurrencyCode(), returnedAccount.getCurrencyCode());
-        Assert.assertEquals(account.getBalance(), returnedAccount.getBalance());
+        Assertions.assertEquals(account.getCurrencyCode(), returnedAccount.getCurrencyCode());
+        Assertions.assertEquals(account.getBalance(), returnedAccount.getBalance());
     }
 
     @Test
@@ -97,14 +98,14 @@ public class CommonServiceTest {
         BankingApiException bankingApiException = assertThrows(BankingApiException.class, () -> {
             commonService.getCurrencyIfAvailable("SGD");
         });
-        Assert.assertEquals(bankingApiException.getHttpStatus(), ApiError.CURRENCY_NOT_SUPPORTED_ERROR.getHttpStatus());
+        Assertions.assertEquals(bankingApiException.getHttpStatus(), ApiError.CURRENCY_NOT_SUPPORTED_ERROR.getHttpStatus());
     }
 
     @Test
     @DisplayName("When passed currency code is supported")
     public void whenCurrencyCodeIsSupported() {
         String currencyCode = commonService.getCurrencyIfAvailable("USD");
-        Assert.assertEquals("USD", currencyCode);
+        Assertions.assertEquals("USD", currencyCode);
     }
 
 }

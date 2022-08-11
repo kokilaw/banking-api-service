@@ -8,7 +8,7 @@ import io.kokilaw.banking.repository.model.User;
 import io.kokilaw.banking.service.AccountService;
 import io.kokilaw.banking.util.mapper.AccountMapper;
 import io.kokilaw.banking.util.mapper.UserMapper;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -49,10 +49,10 @@ public class AccountServiceTest {
         Mockito.verify(commonService, Mockito.times(1)).getCurrencyIfAvailable(accountDTO.getCurrencyCode());
         Mockito.verify(accountRepository, Mockito.times(1)).save(account);
 
-        Assert.assertEquals(accountDTO.getBalanceInCents(), createdAccount.getBalanceInCents());
-        Assert.assertEquals(accountDTO.getCurrencyCode(), createdAccount.getCurrencyCode());
-        Assert.assertEquals(accountDTO.getUserId(), createdAccount.getUserId());
-        Assert.assertEquals(accountDTO.getId(), createdAccount.getId());
+        Assertions.assertEquals(accountDTO.getBalanceInCents(), createdAccount.getBalanceInCents());
+        Assertions.assertEquals(accountDTO.getCurrencyCode(), createdAccount.getCurrencyCode());
+        Assertions.assertEquals(accountDTO.getUserId(), createdAccount.getUserId());
+        Assertions.assertEquals(accountDTO.getId(), createdAccount.getId());
 
     }
 
@@ -70,10 +70,10 @@ public class AccountServiceTest {
         AccountDTO fetchedAccount = accountService.getAccount(1L);
         Mockito.verify(commonService, Mockito.times(1)).getAccountIfAvailable(1L);
 
-        Assert.assertEquals(accountDTO.getBalanceInCents(), fetchedAccount.getBalanceInCents());
-        Assert.assertEquals(accountDTO.getCurrencyCode(), fetchedAccount.getCurrencyCode());
-        Assert.assertEquals(accountDTO.getUserId(), fetchedAccount.getUserId());
-        Assert.assertEquals(accountDTO.getId(), fetchedAccount.getId());
+        Assertions.assertEquals(accountDTO.getBalanceInCents(), fetchedAccount.getBalanceInCents());
+        Assertions.assertEquals(accountDTO.getCurrencyCode(), fetchedAccount.getCurrencyCode());
+        Assertions.assertEquals(accountDTO.getUserId(), fetchedAccount.getUserId());
+        Assertions.assertEquals(accountDTO.getId(), fetchedAccount.getId());
 
     }
 
@@ -99,10 +99,10 @@ public class AccountServiceTest {
         Mockito.verify(commonService, Mockito.times(1)).getCurrencyIfAvailable("USD");
         Mockito.verify(accountRepository, Mockito.times(1)).save(updateAccount);
 
-        Assert.assertEquals(updateAccountDTO.getBalanceInCents(), updatedAccount.getBalanceInCents());
-        Assert.assertEquals(updateAccountDTO.getCurrencyCode(), updatedAccount.getCurrencyCode());
-        Assert.assertEquals(updateAccountDTO.getUserId(), updatedAccount.getUserId());
-        Assert.assertEquals(updateAccountDTO.getId(), updatedAccount.getId());
+        Assertions.assertEquals(updateAccountDTO.getBalanceInCents(), updatedAccount.getBalanceInCents());
+        Assertions.assertEquals(updateAccountDTO.getCurrencyCode(), updatedAccount.getCurrencyCode());
+        Assertions.assertEquals(updateAccountDTO.getUserId(), updatedAccount.getUserId());
+        Assertions.assertEquals(updateAccountDTO.getId(), updatedAccount.getId());
 
     }
 
@@ -111,7 +111,7 @@ public class AccountServiceTest {
     public void whenAmountIsAddedToAccountBalance_AndUpdateIsSuccess() {
         Mockito.when(accountRepository.addToAccountBalance(1L, 100L)).thenReturn(1);
         boolean result = accountService.addToAccountBalance(1L, 100L);
-        Assert.assertEquals(true, result);
+        Assertions.assertEquals(true, result);
     }
 
     @Test
@@ -119,7 +119,7 @@ public class AccountServiceTest {
     public void whenAmountIsAddedToAccountBalance_AndUpdateIsNotSuccess() {
         Mockito.when(accountRepository.addToAccountBalance(2L, 110L)).thenReturn(0);
         boolean result = accountService.addToAccountBalance(2L, 110L);
-        Assert.assertEquals(false, result);
+        Assertions.assertEquals(false, result);
     }
 
     @Test

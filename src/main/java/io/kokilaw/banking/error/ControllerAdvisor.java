@@ -1,10 +1,8 @@
 package io.kokilaw.banking.error;
 
 import io.kokilaw.banking.dto.ErrorDTO;
-import io.kokilaw.banking.error.exception.NotFoundException;
-import io.kokilaw.banking.error.exception.CurrencyNotSupportedException;
-import io.kokilaw.banking.error.exception.InsufficientAccountBalanceException;
-import io.kokilaw.banking.error.exception.TransactionNotFoundException;
+import io.kokilaw.banking.error.exception.*;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,50 +22,36 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<Object> handleNotFoundException(NotFoundException ex, WebRequest request) {
-        HttpStatus httpStatus = HttpStatus.NOT_FOUND;
-        ErrorDTO errorDTO = new ErrorDTO();
-        errorDTO.setMessage("Entity not found.");
-        errorDTO.setStatusCode(httpStatus.value());
-        errorDTO.setAdditionalInfo(ex.getMessage());
-        return new ResponseEntity<>(errorDTO, httpStatus);
+    @ExceptionHandler(BankingApiException.class)
+    public ResponseEntity<Object> handleNotFoundException(BankingApiException ex, WebRequest request) {
+        return new ResponseEntity<>(ex.getErrorResponse(), ex.getHttpStatus());
     }
 
-    @ExceptionHandler(CurrencyNotSupportedException.class)
-    public ResponseEntity<Object> handleCurrencyCodeNotSupportedException(CurrencyNotSupportedException ex, WebRequest request) {
-        HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException ex, WebRequest request) {
+        if (ex.getConstraintName().equals("positive_account_balance")) {
+            BankingApiException inSufficientAccountBalanceException = BankingApiExceptions.generateInSufficientAccountBalanceException(null);
+            return new ResponseEntity<>(inSufficientAccountBalanceException.getErrorResponse(), inSufficientAccountBalanceException.getHttpStatus());
+        }
+        HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         ErrorDTO errorDTO = new ErrorDTO();
-        errorDTO.setMessage("Currency code not supported.");
+        errorDTO.setMessage("Constraint Violation");
         errorDTO.setStatusCode(httpStatus.value());
-        errorDTO.setAdditionalInfo(ex.getMessage());
-        return new ResponseEntity<>(errorDTO, httpStatus);
-    }
-
-    @ExceptionHandler(InsufficientAccountBalanceException.class)
-    public ResponseEntity<Object> handleInsufficientAccountBalanceException(InsufficientAccountBalanceException ex, WebRequest request) {
-        HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
-        ErrorDTO errorDTO = new ErrorDTO();
-        errorDTO.setMessage("Account balance not sufficient.");
-        errorDTO.setStatusCode(httpStatus.value());
-        errorDTO.setAdditionalInfo(ex.getMessage());
         return new ResponseEntity<>(errorDTO, httpStatus);
     }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
-        ErrorDTO errorDTO = new ErrorDTO();
-        errorDTO.setMessage("Validation error.");
-        errorDTO.setAdditionalInfo(String.format("%s validation failed", ex.getTarget().getClass().getSimpleName()));
-        errorDTO.setStatusCode(httpStatus.value());
-        errorDTO.setSubErrors(ex.getBindingResult().getAllErrors().stream()
-                .map(error -> {
-                    String fieldName = ((FieldError) error).getField();
-                    String errorMessage = error.getDefaultMessage();
-                    return fieldName.concat(": ").concat(errorMessage);
-                }).collect(Collectors.toList()));
-        return new ResponseEntity<>(errorDTO, httpStatus);
+        BankingApiException bankingApiException = BankingApiExceptions.generateEntityValidationFailedException(
+                ex.getTarget().getClass().getSimpleName(),
+                ex.getBindingResult().getAllErrors().stream()
+                        .map(error -> {
+                            String fieldName = ((FieldError) error).getField();
+                            String errorMessage = error.getDefaultMessage();
+                            return fieldName.concat(": ").concat(errorMessage);
+                        }).collect(Collectors.toList())
+        );
+        return new ResponseEntity<>(bankingApiException.getErrorResponse(), bankingApiException.getHttpStatus());
     }
 
     @Override

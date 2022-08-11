@@ -2,6 +2,7 @@ package io.kokilaw.banking.repository;
 
 import io.kokilaw.banking.repository.model.Account;
 import io.kokilaw.banking.repository.model.User;
+import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,6 +29,8 @@ public class AccountRepositoryTest {
     public void whenAccountIsSaved_ReturnSavedAccount() {
 
         User user = Helper.getUser();
+        user.setNic("633295239v");
+        user.setEmail("test3@gmail.com");
         User savedUser = userRepository.save(user);
         Account account = Helper.getAccount();
         account.setUser(savedUser);

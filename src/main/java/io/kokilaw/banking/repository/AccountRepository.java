@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AccountRepository extends CrudRepository<Account, Long> {
 
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Query("UPDATE Account account SET account.balance = account.balance + :amount WHERE account.id = :accountId")
     int addToAccountBalance(@Param("accountId") long accountId, @Param("amount") long amount);
 

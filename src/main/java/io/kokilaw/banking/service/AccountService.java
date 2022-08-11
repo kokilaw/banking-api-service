@@ -1,7 +1,6 @@
 package io.kokilaw.banking.service;
 
 import io.kokilaw.banking.dto.AccountDTO;
-import io.kokilaw.banking.error.exception.NotFoundException;
 
 /**
  * Created by kokilaw on 2022-08-09
@@ -14,7 +13,7 @@ public interface AccountService {
 
     AccountDTO updateAccount(long accountId, AccountDTO account);
 
-    AccountDTO updateAccountBalance(long accountId, long balance);
+    boolean addToAccountBalance(long accountId, long amount);
 
     void deleteAccount(long accountId);
 

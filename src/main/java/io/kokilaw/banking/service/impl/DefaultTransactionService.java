@@ -1,9 +1,7 @@
 package io.kokilaw.banking.service.impl;
 
 import io.kokilaw.banking.dto.TransactionDTO;
-import io.kokilaw.banking.error.exception.InsufficientAccountBalanceException;
-import io.kokilaw.banking.error.exception.NotFoundException;
-import io.kokilaw.banking.error.exception.TransactionNotFoundException;
+import io.kokilaw.banking.error.exception.BankingApiExceptions;
 import io.kokilaw.banking.repository.TransactionRepository;
 import io.kokilaw.banking.repository.model.Account;
 import io.kokilaw.banking.repository.model.Transaction;
@@ -52,29 +50,36 @@ public class DefaultTransactionService implements TransactionService {
     public TransactionDTO createTransaction(long accountId, TransactionDTO transactionDTO) {
         Account account = commonService.getAccountIfAvailable(accountId);
 
+        long transactionAmountInCents = transactionDTO.getAmountInCents();
         if (isAccountBalanceNotSufficient(transactionDTO, account)) {
-            throw new InsufficientAccountBalanceException(String.format("Account balance not sufficient to perform debit transaction of: %s", transactionDTO.getAmountInCents()));
+            throw BankingApiExceptions.generateInSufficientAccountBalanceException(transactionAmountInCents);
         }
 
         Transaction transaction = TransactionMapper.mapToTransaction(transactionDTO, account);
-        if (transactionDTO.getTransactionType() == TransactionType.CREDIT) {
-            accountService.updateAccountBalance(accountId, account.getBalance() + transactionDTO.getAmountInCents());
-        } else {
-            accountService.updateAccountBalance(accountId, account.getBalance() - transactionDTO.getAmountInCents());
+        Transaction savedTransaction = transactionRepository.save(transaction);
+        boolean accountUpdated = accountService.addToAccountBalance(
+                accountId,
+                transactionDTO.getTransactionType() == TransactionType.CREDIT
+                        ? transactionAmountInCents
+                        : -transactionAmountInCents
+        );
+
+        if (!accountUpdated) {
+            throw BankingApiExceptions.generateTransactionFailedException(accountId);
         }
 
-        return TransactionMapper.mapToTransactionDTO(transactionRepository.save(transaction));
+        return TransactionMapper.mapToTransactionDTO(savedTransaction);
     }
 
     private boolean isAccountBalanceNotSufficient(TransactionDTO transactionDTO, Account account) {
-        return transactionDTO.getTransactionType() == TransactionType.DEBIT && account.getBalance() < 0;
+        return transactionDTO.getTransactionType() == TransactionType.DEBIT && account.getBalance() < transactionDTO.getAmountInCents();
     }
 
     @Override
     public TransactionDTO getTransaction(long accountId, long transactionId) {
-        Transaction transaction = transactionRepository.findById(transactionId).orElseThrow(() -> new NotFoundException(
-                String.format("Transaction not found for id: %s", transactionId)
-        ));
+        Transaction transaction = transactionRepository.findById(transactionId).orElseThrow(() ->
+                BankingApiExceptions.generateEntityNotFoundException(Transaction.class.getSimpleName(), transactionId)
+        );
         return TransactionMapper.mapToTransactionDTO(transaction);
     }
 

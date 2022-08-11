@@ -50,10 +50,9 @@ public class DefaultAccountService implements AccountService {
     }
 
     @Override
-    public AccountDTO updateAccountBalance(long accountId, long balance) {
-        Account currentAccount = commonService.getAccountIfAvailable(accountId);
-        currentAccount.setBalance(balance);
-        return AccountMapper.mapToAccountDTO(accountRepository.save(currentAccount));
+    public boolean addToAccountBalance(long accountId, long amount) {
+        int updatedRows = accountRepository.addToAccountBalance(accountId, amount);
+        return updatedRows > 0;
     }
 
     @Override

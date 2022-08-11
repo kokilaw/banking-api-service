@@ -1,7 +1,6 @@
 package io.kokilaw.banking.service;
 
 import io.kokilaw.banking.dto.TransactionDTO;
-import io.kokilaw.banking.error.exception.NotFoundException;
 
 import java.util.List;
 

@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import static io.kokilaw.banking.service.impl.Helper.getUserDTO;
+
 /**
  * Created by kokilaw on 2022-08-11
  */
@@ -87,17 +89,6 @@ public class UserServiceTest {
         Assertions.assertEquals("Sam", returnedUserDTO.getGivenName());
 
 
-    }
-
-    private UserDTO getUserDTO() {
-        UserDTO userDTO = new UserDTO();
-        userDTO.setId(1L);
-        userDTO.setEmail("johndoe@gmail.com");
-        userDTO.setDateOfBirth("1996-02-28");
-        userDTO.setGivenName("John");
-        userDTO.setFamilyName("Doe");
-        userDTO.setNic("960345240v");
-        return userDTO;
     }
 
 }

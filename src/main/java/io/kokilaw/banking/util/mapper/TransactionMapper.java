@@ -20,7 +20,9 @@ public class TransactionMapper {
         transactionDTO.setId(transaction.getId());
         transactionDTO.setTransactionType(transaction.getTransactionType());
         transactionDTO.setAmountInCents(transaction.getAmount());
-        transactionDTO.setCreatedAt(transaction.getCreatedAt().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        if (transaction.getCreatedAt() != null) {
+            transactionDTO.setCreatedAt(transaction.getCreatedAt().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        }
         return transactionDTO;
     }
 

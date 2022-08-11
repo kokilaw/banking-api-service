@@ -34,13 +34,13 @@ public class DefaultAccountService extends BaseService implements AccountService
     }
 
     @Override
-    public AccountDTO getAccount(Long accountId) {
+    public AccountDTO getAccount(long accountId) {
         Account account = getAccountIfAvailable(accountId);
         return AccountMapper.mapToAccountDTO(account);
     }
 
     @Override
-    public AccountDTO updateAccount(Long accountId, AccountDTO accountDTO) {
+    public AccountDTO updateAccount(long accountId, AccountDTO accountDTO) {
         Account currentAccount = getAccountIfAvailable(accountId);
         Currency currency = getCurrencyIfAvailable(accountDTO.getCurrencyCode());
         Account accountToUpdate = AccountMapper.mapToAccount(accountDTO);
@@ -54,14 +54,14 @@ public class DefaultAccountService extends BaseService implements AccountService
     }
 
     @Override
-    public AccountDTO updateAccountBalance(Long accountId, BigDecimal balance) {
+    public AccountDTO updateAccountBalance(long accountId, BigDecimal balance) {
         Account currentAccount = getAccountIfAvailable(accountId);
         currentAccount.setBalance(balance);
         return AccountMapper.mapToAccountDTO(accountRepository.save(currentAccount));
     }
 
     @Override
-    public void deleteAccount(Long accountId) {
+    public void deleteAccount(long accountId) {
         getAccountIfAvailable(accountId);
         accountRepository.deleteById(accountId);
     }

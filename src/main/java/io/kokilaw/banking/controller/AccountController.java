@@ -27,17 +27,17 @@ public class AccountController {
     }
 
     @GetMapping("/{accountId}")
-    public AccountDTO getAccount(@PathVariable Long accountId) {
+    public AccountDTO getAccount(@PathVariable long accountId) {
         return accountService.getAccount(accountId);
     }
 
     @PutMapping("/{accountId}")
-    public AccountDTO updateAccount(@PathVariable Long accountId, @Valid @RequestBody AccountDTO account) {
+    public AccountDTO updateAccount(@PathVariable long accountId, @Valid @RequestBody AccountDTO account) {
         return accountService.updateAccount(accountId, account);
     }
 
     @DeleteMapping("/{accountId}")
-    public void deleteAccount(@PathVariable Long accountId) {
+    public void deleteAccount(@PathVariable long accountId) {
         accountService.deleteAccount(accountId);
     }
 

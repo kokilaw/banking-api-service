@@ -41,7 +41,7 @@ public class DefaultTransactionService extends BaseService implements Transactio
     }
 
     @Override
-    public List<TransactionDTO> getTransactions(Long accountId) {
+    public List<TransactionDTO> getTransactions(long accountId) {
         Account account = getAccountIfAvailable(accountId);
         return transactionRepository.findAllByAccount(account)
                 .stream()
@@ -51,7 +51,7 @@ public class DefaultTransactionService extends BaseService implements Transactio
 
     @Override
     @Transactional
-    public TransactionDTO createTransaction(Long accountId, TransactionDTO transactionDTO) {
+    public TransactionDTO createTransaction(long accountId, TransactionDTO transactionDTO) {
         Account account = getAccountIfAvailable(accountId);
 
         if (isAccountBalanceNotSufficient(transactionDTO, account)) {
@@ -73,7 +73,7 @@ public class DefaultTransactionService extends BaseService implements Transactio
     }
 
     @Override
-    public TransactionDTO getTransaction(Long accountId, Long transactionId) {
+    public TransactionDTO getTransaction(long accountId, long transactionId) {
         Transaction transaction = transactionRepository.findById(transactionId).orElseThrow(() -> new TransactionNotFoundException(
                 String.format("Transaction not found for id: %s", transactionId)
         ));

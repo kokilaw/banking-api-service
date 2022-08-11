@@ -15,6 +15,7 @@
     <description>Assignment project for meicook</description>
     <properties>
         <java.version>11</java.version>
+        <openapi.ui.version>1.6.4</openapi.ui.version>
     </properties>
     <dependencies>
         <dependency>
@@ -33,7 +34,7 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <scope>runtime</scope>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -53,7 +54,7 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.6.4</version>
+            <version>${openapi.ui.version}</version>
         </dependency>
     </dependencies>
 

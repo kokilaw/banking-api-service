@@ -33,11 +33,8 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
             BankingApiException inSufficientAccountBalanceException = BankingApiExceptions.generateInSufficientAccountBalanceException(null);
             return new ResponseEntity<>(inSufficientAccountBalanceException.getErrorResponse(), inSufficientAccountBalanceException.getHttpStatus());
         }
-        HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-        ErrorDTO errorDTO = new ErrorDTO();
-        errorDTO.setMessage("Constraint Violation");
-        errorDTO.setStatusCode(httpStatus.value());
-        return new ResponseEntity<>(errorDTO, httpStatus);
+        BankingApiException constraintViolationException = BankingApiExceptions.generateConstraintViolationException();
+        return new ResponseEntity<>(constraintViolationException.getErrorResponse(), constraintViolationException.getHttpStatus());
     }
 
     @Override
@@ -56,11 +53,8 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        ErrorDTO errorDTO = new ErrorDTO();
-        errorDTO.setMessage("Invalid request received.");
-        errorDTO.setAdditionalInfo(ex.getMessage());
-        errorDTO.setStatusCode(status.value());
-        return new ResponseEntity<>(errorDTO, status);
+        BankingApiException invalidRequestException = BankingApiExceptions.generateInvalidRequestException(ex.getMessage());
+        return new ResponseEntity<>(invalidRequestException.getErrorResponse(), invalidRequestException.getHttpStatus());
     }
 
 }

@@ -13,7 +13,7 @@ public class ErrorDTO {
 
     private String message;
     private String additionalInfo;
-    private int statusCode;
+    private String errorCode;
     private List<String> subErrors = Collections.emptyList();
 
 }

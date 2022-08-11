@@ -3,7 +3,6 @@ package io.kokilaw.banking.error.exception;
 import io.kokilaw.banking.dto.ErrorDTO;
 import io.kokilaw.banking.error.ApiError;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import java.util.Collections;
 import java.util.List;
@@ -35,11 +34,10 @@ public class BankingApiException extends RuntimeException {
     }
 
     public ErrorDTO getErrorResponse() {
-        HttpStatus httpStatus = apiError.getHttpStatus();
         ErrorDTO errorDTO = new ErrorDTO();
         errorDTO.setMessage(this.apiError.getErrorMessage());
         errorDTO.setAdditionalInfo(this.additionalInfo);
-        errorDTO.setStatusCode(httpStatus.value());
+        errorDTO.setErrorCode(this.apiError.getErrorCode());
         errorDTO.setSubErrors(subErrors);
         return errorDTO;
     }

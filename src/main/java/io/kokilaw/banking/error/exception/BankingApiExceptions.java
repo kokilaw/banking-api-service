@@ -45,5 +45,19 @@ public class BankingApiExceptions {
         );
     }
 
+    public static BankingApiException generateInvalidRequestException(String additionalInfo) {
+        return new BankingApiException(
+                ApiError.INVALID_REQUEST,
+                additionalInfo
+        );
+    }
+
+    public static BankingApiException generateConstraintViolationException() {
+        return new BankingApiException(
+                ApiError.CONSTRAINT_VIOLATION,
+                null
+        );
+    }
+
 
 }

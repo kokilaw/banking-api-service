@@ -15,4 +15,11 @@ spring:
       enabled: 'true'
 server:
   servlet:
-    context-path: /banking-api/v1
+    context-path: /banking-api
+
+application:
+  properties:
+    supported-currencies: >
+      USD,
+      GBP,
+      EUR

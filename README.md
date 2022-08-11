@@ -20,3 +20,17 @@ docker run --name banking_postgres -p 5455:5432 -e POSTGRES_USER=postgres -e POS
 ```
 
 - Run `scripts/init/init_schema.sql` to setup the database schema.
+
+### Running the Application
+
+Running the Rest API
+
+```shell
+mvn spring-boot:run
+```
+
+Running the Test Cases
+
+```shell
+mvn test
+```

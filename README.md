@@ -9,12 +9,15 @@
 - Install Docker 20.x.x
 - Pull postgres image from docker registry
 
-  ```docker pull postgres:14.4```
+```shell
+  docker pull postgres:14.4
+```
 
 - Run downloaded postgres image
 
-```
+```shell
 docker run --name banking_postgres -p 5455:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=password -e POSTGRES_DB=banking_db -d postgres
 ```
- - Run `scripts/init/init_schema.sql` to setup the schema.
- - Run `scripts/init/init_data.sql` to setup initial data needed to run the API
+
+- Run `scripts/init/init_schema.sql` to setup the database schema.
+- Run `scripts/init/init_data.sql` to setup initial data needed to run the API

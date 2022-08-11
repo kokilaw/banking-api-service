@@ -64,15 +64,15 @@ public class CommonServiceTest {
         BankingApiException bankingApiException = assertThrows(BankingApiException.class, () -> {
             commonService.getUserIfAvailable(1L);
         });
-        Assert.assertEquals(bankingApiException.getHttpStatus(), ApiError.ENTITY_NOT_FOUND_ERROR.getHttpStatus());
+        Assertions.assertEquals(bankingApiException.getHttpStatus(), ApiError.ENTITY_NOT_FOUND_ERROR.getHttpStatus());
     }
 
     @Test
     @DisplayName("When user is found for given user id")
     public void whenUserIsFound() {
         User returnedUser = commonService.getUserIfAvailable(2L);
-        Assert.assertEquals(user.getFamilyName(), returnedUser.getFamilyName());
-        Assert.assertEquals(user.getGivenName(), returnedUser.getGivenName());
+        Assertions.assertEquals(user.getFamilyName(), returnedUser.getFamilyName());
+        Assertions.assertEquals(user.getGivenName(), returnedUser.getGivenName());
     }
 
     @Test

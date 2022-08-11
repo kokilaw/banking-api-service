@@ -111,7 +111,7 @@ public class AccountServiceTest {
     public void whenAmountIsAddedToAccountBalance_AndUpdateIsSuccess() {
         Mockito.when(accountRepository.addToAccountBalance(1L, 100L)).thenReturn(1);
         boolean result = accountService.addToAccountBalance(1L, 100L);
-        Assertions.assertEquals(true, result);
+        Assertions.assertTrue(result);
     }
 
     @Test
@@ -119,7 +119,7 @@ public class AccountServiceTest {
     public void whenAmountIsAddedToAccountBalance_AndUpdateIsNotSuccess() {
         Mockito.when(accountRepository.addToAccountBalance(2L, 110L)).thenReturn(0);
         boolean result = accountService.addToAccountBalance(2L, 110L);
-        Assertions.assertEquals(false, result);
+        Assertions.assertFalse(result);
     }
 
     @Test

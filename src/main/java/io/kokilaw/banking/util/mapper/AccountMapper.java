@@ -18,6 +18,7 @@ public class AccountMapper {
 
     public static Account mapToAccount(AccountDTO accountDTO, User user, String currencyCode) {
         Account account = new Account();
+        account.setId(accountDTO.getId());
         account.setBalance(accountDTO.getBalanceInCents());
         account.setCurrencyCode(currencyCode);
         account.setUser(user);

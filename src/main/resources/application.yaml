@@ -1,8 +1,8 @@
 spring:
   datasource:
-    username: postgres
-    url: jdbc:postgresql://localhost:5455/banking_db
-    password: password
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5455}/banking_db
+    username: ${POSTGRES_USERNAME:postgres}
+    password: ${POSTGRES_PASSWORD:password}
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:

@@ -1,6 +1,9 @@
 # Specification
 
 * [API Specification](#api-specification)
+  * [User Resource](#user-resource)
+  * [Account Resource](#account-resource)
+  * [Transaction Resource](#transaction-resource)
 * [Design Decisions](#design-decisions)
 
 ## API Specification

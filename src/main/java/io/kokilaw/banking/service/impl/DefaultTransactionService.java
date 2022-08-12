@@ -39,7 +39,7 @@ public class DefaultTransactionService implements TransactionService {
     @Override
     public List<TransactionDTO> getTransactions(long accountId) {
         Account account = commonService.getAccountIfAvailable(accountId);
-        return transactionRepository.findAllByAccount(account)
+        return transactionRepository.findAllByAccountOrderByCreatedAtDesc(account)
                 .stream()
                 .map(TransactionMapper::mapToTransactionDTO)
                 .collect(Collectors.toList());

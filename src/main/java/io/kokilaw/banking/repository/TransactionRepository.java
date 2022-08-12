@@ -12,5 +12,5 @@ import java.util.List;
  */
 @Repository
 public interface TransactionRepository extends CrudRepository<Transaction, Long> {
-    List<Transaction> findAllByAccount(Account account);
+    List<Transaction> findAllByAccountOrderByCreatedAtDesc(Account account);
 }

@@ -1,8 +1,9 @@
 # banking-api-service
 
-## Prerequisites
+* [Development Environment Setup] (#development-environment-setup)
+* [Running the Application] (#running-the-application)
 
-### Development Environment Setup
+## Development Environment Setup
 
 - Install JDK 11.x.x
 - Install Maven 3.x.x
@@ -21,7 +22,7 @@ docker run --name banking_postgres -p 5455:5432 -e POSTGRES_USER=postgres -e POS
 
 - Run `scripts/init/init_schema.sql` to setup the database schema.
 
-### Running the Application
+## Running the Application
 
 Running the Rest API
 
@@ -29,7 +30,7 @@ Running the Rest API
 mvn spring-boot:run
 ```
 
-Running the Test Cases
+Running the test cases
 
 ```shell
 mvn test

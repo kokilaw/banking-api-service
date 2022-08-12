@@ -38,7 +38,7 @@ mvn test
 ```
 ## Design Decisions
 
-### Storing monitory values in cents rather than decimal values
+### Storing monetary values in cents rather than decimal values
 
 In order to avoid decimal precision related problems that may arise, system is accepting and storing the monetary values in cents.
 

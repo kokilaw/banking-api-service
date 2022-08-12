@@ -2,7 +2,7 @@
 
 * [Development Environment Setup](#development-environment-setup)
 * [Running the Application](#running-the-application)
-* [Design Decisions](#design-decisions)
+* [Specification](Specification.md)
 
 ## Development Environment Setup
 
@@ -36,9 +36,4 @@ Running the test cases
 ```shell
 mvn test
 ```
-## Design Decisions
-
-### Storing monetary values in cents rather than decimal values
-
-In order to avoid decimal precision related problems that may arise, system is accepting and storing the monetary values in cents.
 

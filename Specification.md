@@ -1,3 +1,10 @@
+# Specification
+
+* [API Specification](#api-specification)
+* [Design Decisions](#design-decisions)
+
+## API Specification
+
 ### User Resource
 
 #### Create User
@@ -22,7 +29,7 @@
 
 | Parameter | Param Type | Type     | Description                |
 | :-------- | :-------- | :------- | :------------------------- |
-| `userId`| Path | `long` | Id of the user needs to be fetched. |
+| `userId`| Path | `integer` | Id of the user needs to be fetched. |
 
 #### Update User
 
@@ -32,7 +39,7 @@
 
 | Parameter | Param Type | Type     | Description                |
 | :-------- | :-------- | :------- | :------------------------- |
-| `userId`| Path | `long` | Id of the user needs to be updated. |
+| `userId`| Path | `integer` | Id of the user needs to be updated. |
 | `givenName`| Request Body | `string` | Given name of the user. |
 | `familyName`| Request Body | `string` | Family name of the user. |
 | `dateOfBirth`| Request Body | `string` | User's date of birth in `yyyy-MM-dd` format. |
@@ -47,7 +54,7 @@
 
 | Parameter | Param Type | Type     | Description                |
 | :-------- | :-------- | :------- | :------------------------- |
-| `userId`| Path and Request Body| `long` | Id of the user needs to be deleted. |
+| `userId`| Path and Request Body| `integer` | Id of the user needs to be deleted. |
 
 ### Account Resource
 
@@ -59,9 +66,9 @@
 
 | Parameter | Param Type | Type     | Description                |
 | :-------- | :-------- | :------- | :------------------------- |
-| `userId`| Request Body | `long` | User Id of the user which the account belongs to. |
+| `userId`| Request Body | `integer` | User Id of the user which the account belongs to. |
 | `currencyCode`| Request Body | `string` | Currency of the account in `ISO 4217` standard. |
-| `balanceInCents`| Request Body | `long` | Current balance of the account converted to cents. |
+| `balanceInCents`| Request Body | `integer` | Current balance of the account converted to cents. |
 
 #### Get Account
 
@@ -71,7 +78,7 @@
 
 | Parameter | Param Type | Type     | Description                |
 | :-------- | :-------- | :------- | :------------------------- |
-| `accountId`| Path | `long` | Id of the account needs to fetched. |
+| `accountId`| Path | `integer` | Id of the account needs to fetched. |
 
 #### Update Account
 
@@ -82,7 +89,7 @@
 | Parameter | Param Type | Type     | Description                |
 | :-------- | :-------- | :------- | :------------------------- |
 | `currencyCode`| Request Body | `string` | Currency of the account in `ISO 4217` standard. |
-| `balanceInCents`| Request Body | `long` | Current balance of the account converted to cents. |
+| `balanceInCents`| Request Body | `integer` | Current balance of the account converted to cents. |
 
 #### Delete Account
 
@@ -92,7 +99,7 @@
 
 | Parameter | Param Type | Type     | Description                |
 | :-------- | :-------- | :------- | :------------------------- |
-| `accountId`| Path | `long` | Id of the account. |
+| `accountId`| Path | `integer` | Id of the account. |
 
 ### Transaction Resource
 
@@ -104,7 +111,7 @@
 
 | Parameter | Param Type | Type     | Description                |
 | :-------- | :-------- | :------- | :------------------------- |
-| `accountId`| Path | `long` | Id of the account needs to fetched. |
+| `accountId`| Path | `integer` | Id of the account needs to fetched. |
 
 #### Create Transaction for an Account
 
@@ -114,9 +121,9 @@
 
 | Parameter | Param Type | Type     | Description                |
 | :-------- | :-------- | :------- | :------------------------- |
-| `accountId`| Path | `long` | Id of the account needs to fetched. |
+| `accountId`| Path | `integer` | Id of the account needs to fetched. |
 | `transactionType`| Request Body | `string` | Type of the transaction. Possible values are `CREDIT` or `DEBIT` |
-| `amountInCents`| Request Body | `long` | Transaction amount converted to cents. |
+| `amountInCents`| Request Body | `integer` | Transaction amount converted to cents. |
 
 #### Get Transaction
 
@@ -126,5 +133,11 @@
 
 | Parameter | Param Type | Type     | Description                |
 | :-------- | :-------- | :------- | :------------------------- |
-| `accountId`| Path | `long` | Id of the account transaction belongs to. |
-| `transactionId`| Path | `long` | Id of the transaction needs to fetched. |
+| `accountId`| Path | `integer` | Id of the account transaction belongs to. |
+| `transactionId`| Path | `integer` | Id of the transaction needs to fetched. |
+
+## Design Decisions
+
+### Storing monetary values in cents rather than decimal values
+
+In order to avoid decimal precision related problems that may arise, system is accepting and storing the monetary values in cents.

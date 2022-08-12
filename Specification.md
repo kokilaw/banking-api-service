@@ -1,19 +1,22 @@
 # Specification
 
 * [API Specification](#api-specification)
-  * [User Resource](#user-resource)
-  * [Account Resource](#account-resource)
-  * [Transaction Resource](#transaction-resource)
+    * [User Resource](#user-resource)
+    * [Account Resource](#account-resource)
+    * [Transaction Resource](#transaction-resource)
 * [Design Decisions](#design-decisions)
 
 ## API Specification
+
+[Swagger Documentation](http://localhost:8080/banking-api/swagger-ui/index.html) is available if the API is up and
+running.
 
 ### User Resource
 
 #### Create User
 
 ```http
-  POST /v1/users
+  POST /banking-api/v1/users
 ```
 
 | Parameter | Param Type | Type     | Description                |
@@ -27,7 +30,7 @@
 #### Get User
 
 ```http
-  GET /v1/users/{userId}
+  GET /banking-api/v1/users/{userId}
 ```
 
 | Parameter | Param Type | Type     | Description                |
@@ -37,7 +40,7 @@
 #### Update User
 
 ```http
-  PUT /v1/users/{userId}
+  PUT /banking-api/v1/users/{userId}
 ```
 
 | Parameter | Param Type | Type     | Description                |
@@ -52,7 +55,7 @@
 #### Delete User
 
 ```http
-  DELETE /v1/users/{userId}
+  DELETE /banking-api/v1/users/{userId}
 ```
 
 | Parameter | Param Type | Type     | Description                |
@@ -64,7 +67,7 @@
 #### Create Account
 
 ```http
-  POST /v1/accounts
+  POST /banking-api/v1/accounts
 ```
 
 | Parameter | Param Type | Type     | Description                |
@@ -76,7 +79,7 @@
 #### Get Account
 
 ```http
-  POST /v1/accounts/{accountId}
+  POST /banking-api/v1/accounts/{accountId}
 ```
 
 | Parameter | Param Type | Type     | Description                |
@@ -86,7 +89,7 @@
 #### Update Account
 
 ```http
-  PUT /v1/accounts/{accountId}
+  PUT /banking-api/v1/accounts/{accountId}
 ```
 
 | Parameter | Param Type | Type     | Description                |
@@ -97,7 +100,7 @@
 #### Delete Account
 
 ```http
-  DELETE /v1/accounts/{accountId}
+  DELETE /banking-api/v1/accounts/{accountId}
 ```
 
 | Parameter | Param Type | Type     | Description                |
@@ -109,7 +112,7 @@
 #### Get all Transactions for an Account
 
 ```http
-  GET /v1/accounts/{accountId}/transactions
+  GET /banking-api/v1/accounts/{accountId}/transactions
 ```
 
 | Parameter | Param Type | Type     | Description                |
@@ -119,7 +122,7 @@
 #### Create Transaction for an Account
 
 ```http
-  POST /v1/accounts/{accountId}/transactions
+  POST /banking-api/v1/accounts/{accountId}/transactions
 ```
 
 | Parameter | Param Type | Type     | Description                |
@@ -131,7 +134,7 @@
 #### Get Transaction
 
 ```http
-  GET /v1/accounts/{accountId}/transactions/{transactionId}
+  GET /banking-api/v1/accounts/{accountId}/transactions/{transactionId}
 ```
 
 | Parameter | Param Type | Type     | Description                |
@@ -143,4 +146,5 @@
 
 ### Storing monetary values in cents rather than decimal values
 
-In order to avoid decimal precision related problems that may arise, system is accepting and storing the monetary values in cents.
+In order to avoid decimal precision related problems that may arise, system is accepting and storing the monetary values
+in cents.

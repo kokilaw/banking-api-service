@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Created by kokilaw on 2022-08-12
  */
-@SpringBootTest
+@SpringBootTest(classes = {DefaultTransactionService.class})
 public class TransactionServiceTest {
 
     @MockBean

@@ -22,7 +22,7 @@ import static io.kokilaw.banking.service.impl.Helper.getUserDTO;
 /**
  * Created by kokilaw on 2022-08-11
  */
-@SpringBootTest
+@SpringBootTest(classes = {DefaultAccountService.class})
 public class AccountServiceTest {
 
     @MockBean
@@ -141,7 +141,6 @@ public class AccountServiceTest {
         Mockito.verify(accountRepository, Mockito.times(1)).deleteById(1L);
 
     }
-
 
 
 }

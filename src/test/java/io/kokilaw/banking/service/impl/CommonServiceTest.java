@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Created by kokilaw on 2022-08-11
  */
-@SpringBootTest
+@SpringBootTest(classes = {CommonService.class})
 public class CommonServiceTest {
 
     @MockBean

@@ -18,7 +18,7 @@ import static io.kokilaw.banking.service.impl.Helper.getUserDTO;
 /**
  * Created by kokilaw on 2022-08-11
  */
-@SpringBootTest
+@SpringBootTest(classes = {DefaultUserService.class})
 public class UserServiceTest {
 
     @MockBean

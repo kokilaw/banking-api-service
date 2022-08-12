@@ -6,10 +6,8 @@ import io.kokilaw.banking.repository.model.Transaction;
 import io.kokilaw.banking.repository.model.TransactionType;
 import io.kokilaw.banking.repository.model.User;
 import io.kokilaw.banking.util.mapper.TransactionMapper;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.BeforeClass;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -34,7 +32,7 @@ public class TransactionRepositoryTest {
     private User commonUser;
     private Account commonAccount;
 
-    @AfterEach
+    @BeforeEach
     public void doAfterEachTest() {
         transactionRepository.deleteAll();
         accountRepository.deleteAll();

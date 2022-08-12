@@ -1,7 +1,7 @@
-# banking-api-service
+# Banking API Service
 
-* [Development Environment Setup] (#development-environment-setup)
-* [Running the Application] (#running-the-application)
+* [Development Environment Setup](#development-environment-setup)
+* [Running the Application](#running-the-application)
 
 ## Development Environment Setup
 

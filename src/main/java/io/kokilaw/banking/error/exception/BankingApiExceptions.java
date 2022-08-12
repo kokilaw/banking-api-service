@@ -1,6 +1,8 @@
 package io.kokilaw.banking.error.exception;
 
 import io.kokilaw.banking.error.ApiError;
+import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.web.context.request.WebRequest;
 
 import java.util.List;
 
@@ -52,11 +54,32 @@ public class BankingApiExceptions {
         );
     }
 
-    public static BankingApiException generateConstraintViolationException() {
-        return new BankingApiException(
-                ApiError.CONSTRAINT_VIOLATION,
-                null
-        );
+    public static BankingApiException generateConstraintViolationException(
+            ConstraintViolationException constraintViolationException,
+            WebRequest webRequest
+    ) {
+        switch (constraintViolationException.getConstraintName()) {
+            case "positive_account_balance":
+                return new BankingApiException(
+                        ApiError.INSUFFICIENT_ACCOUNT_BALANCE_ERROR,
+                        null
+                );
+            case "bank_user_nic_key":
+                return new BankingApiException(
+                        ApiError.USER_EMAIL_AlREADY_IN_USE_ERROR,
+                        null
+                );
+            case "bank_user_email_key":
+                return new BankingApiException(
+                        ApiError.USER_NIC_AlREADY_IN_USE_ERROR,
+                        null
+                );
+            default:
+                return new BankingApiException(
+                        ApiError.CONSTRAINT_VIOLATION,
+                        null
+                );
+        }
     }
 
 

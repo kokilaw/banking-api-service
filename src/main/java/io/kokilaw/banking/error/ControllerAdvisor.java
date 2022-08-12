@@ -29,11 +29,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException ex, WebRequest request) {
-        if (ex.getConstraintName().equals("positive_account_balance")) {
-            BankingApiException inSufficientAccountBalanceException = BankingApiExceptions.generateInSufficientAccountBalanceException(null);
-            return new ResponseEntity<>(inSufficientAccountBalanceException.getErrorResponse(), inSufficientAccountBalanceException.getHttpStatus());
-        }
-        BankingApiException constraintViolationException = BankingApiExceptions.generateConstraintViolationException();
+        BankingApiException constraintViolationException = BankingApiExceptions.generateConstraintViolationException(ex, request);
         return new ResponseEntity<>(constraintViolationException.getErrorResponse(), constraintViolationException.getHttpStatus());
     }
 

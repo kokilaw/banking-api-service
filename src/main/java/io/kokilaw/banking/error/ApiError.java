@@ -15,6 +15,8 @@ public enum ApiError {
     INSUFFICIENT_ACCOUNT_BALANCE_ERROR("E100002", "Insufficient account balance.", HttpStatus.BAD_REQUEST),
     ENTITY_VALIDATION_FAILED_ERROR("E100003", "Entity validation failed.", HttpStatus.BAD_REQUEST),
     INVALID_REQUEST("E100004", "Invalid Request.", HttpStatus.BAD_REQUEST),
+    USER_EMAIL_AlREADY_IN_USE_ERROR("E100005", "User email is already in use.", HttpStatus.BAD_REQUEST),
+    USER_NIC_AlREADY_IN_USE_ERROR("E100006", "User NIC is already in use.", HttpStatus.BAD_REQUEST),
     ENTITY_NOT_FOUND_ERROR("E200001", "Entity not found.", HttpStatus.NOT_FOUND),
     TRANSACTION_FAILED_ERROR("E300001", "Transaction failed.", HttpStatus.INTERNAL_SERVER_ERROR),
     CONSTRAINT_VIOLATION("E100002", "Constrain Violation.", HttpStatus.INTERNAL_SERVER_ERROR);
